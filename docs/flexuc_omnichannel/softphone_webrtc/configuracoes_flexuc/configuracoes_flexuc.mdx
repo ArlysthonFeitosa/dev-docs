@@ -1,0 +1,72 @@
+---
+id: configuracoes_flexuc
+---
+
+# Configurações no FlexUC
+
+É necessário executar algumas configurações no FlexUC para possibilitar utilizar o Softphone WebRTC:
+
+### 1. Configurar transporte WSS
+
+O Softphone WebRTC não utiliza os transportes UDP e TCP, e sim o WSS (Websocket).
+
+
+#### Navegue até configurações
+
+<div align="center">
+![](./img/menu.png)
+</div>
+
+
+#### Clique em "Configuração PJSIP"
+
+<div align="center">
+![](./img/settings_menu_pjsip_settings.png)
+</div>
+
+
+#### Clique em "Criar"
+
+<div align="center">
+![](./img/pjsip_settings.png)
+</div>
+
+
+#### Preencha os campos e adicione a configuração PJSIP
+
+<div align="center">
+![](./img/setup_pjsip.png)
+</div>
+
+### 2. Configurar Ramal
+
+É necessário configurar o ramal PJSIP para utilizar o transporte WSS.
+
+#### Navegue até configurações
+
+<div align="center">
+![](./img/menu.png)
+</div>
+
+
+#### Clique em "Ramais"
+
+<div align="center">
+![](./img/settings_menu_extensions.png)
+</div>
+
+#### Clique em "Adicionar PJSIP"
+
+<div align="center">
+![](./img/add_pjsip.png)
+</div>
+
+
+#### Preencha os campos 
+
+Selecione a configuração com transporte WSS, preencha os outros campos do ramal e clique em salvar.
+
+<div align="center">
+![](./img/setup_extension.png)
+</div>
+

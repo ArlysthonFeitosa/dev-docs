@@ -1,0 +1,54 @@
+---
+id: configuracoes_servidor
+---
+
+# Configurações no servidor
+
+É necessário executar algumas configurações no servidor para possibilitar utilizar o Softphone WebRTC:
+
+### 1. Porta 8089
+
+Para permitir a comunicação de voz por meio do Websocket, é necessário **liberar a porta 8089** no Firewall do servidor.
+
+
+### 2. Ativar TLS
+
+No arquivo **/etc/asterisk/http.conf**, inclua as linhas destacadas abaixo para **ativar o TLS** e especificar o caminho dos certificados.
+
+```conf title="/etc/asterisk/http.conf"
+[general]
+servername = Asterisk
+bindaddr = 0.0.0.0
+enable = yes
+bindport = 8088
+
+// highlight-start
+tlsenable=yes
+tlsbindaddr=0.0.0.0:8089
+tlscertfile=/opt/workspace/kong-flexuc-4/certificados-ssl/bundle.crt
+tlsprivatekey=/opt/workspace/kong-flexuc-4/certificados-ssl/flexchannel.key
+// highlight-end
+```
+
+### 3. Inicialização do SIP e PJSIP
+
+Para que o Softphone funcione de forma devida, o PJSIP precisa ser inicializado primeiro do que o SIP no servidor.
+Para fazer essa configuração, é necessário desativar o módulo **chan_sip.so** na inicialização do asterisk através do arquivo **/etc/asterisk/modules.conf** e ativar ele manualmente após a inicialização do asterisk.
+
+```conf title="/etc/asterisk/modules.conf"
+//Inclua esta linha para desativar o SIP na inicialização
+
+noload => chan_sip.so
+```
+
+Execute o seguinte comando para **reiniciar o asterisk**:
+
+```powershell 
+systemctl restart asterisk
+```
+
+Execute o seguinte comando para **iniciar o SIP manualmente**:
+
+```powershell 
+rasterisk -x "module load chan_sip.so"
+```
